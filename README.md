@@ -1,1 +1,11 @@
-# JuliaCon2022
+# JuliaCon 2022 proposal
+
+## [Building workflows for materials modeling on HPC systems](https://pretalx.com/juliacon-2022/talk/review/LND3T9QWBVE8MNCMATWVBCBXMZGBAN3N)
+
+Materials computations, especially of the *ab initio* kind, are intrinsically complex. These difficulties have inspired us to develop an extensible, lightweight, high-level workflow framework, `Express.jl`, to automate long and extensive sequences of the *ab initio* calculations. In this talk, we would like to share some experiences that we gained in building a software framework and multifunctional scientific tools with Julia's versatility.
+
+------
+
+`Express.jl`, together with its "plugins" (such as `QuantumESPRESSOExpress.jl`), are shipped with well-tested workflow templates, including structure optimization, equation of state fitting, lattice dynamics calculation, and thermodynamic property calculation. It is designed to be highly modularized so that its components can be reused across various occasions, and customized workflows can be built on top of that. It helps users in the preparation of inputs, execution of simulations, and analysis of data. Users can also track the status of workflows in real-time and rerun failed jobs thanks to the data lineage feature `Express.jl` provides.
+
+To achieve the goals mentioned above, we built several independent packages during the development of `Express.jl`, which are supposed to solve some ordinary problems in the physics, geoscience, and materials science communities, e.g., `EquationsOfStateOfSolids.jl`, `Geotherm.jl`, `Spglib.jl`, `Crystallography.jl`. Of course, as a project aimed to automate mundane operations of the *ab initio* calculations, we wrote a package (`SimpleWorkflows.jl`) to construct workflows from basic jobs and track their execution status. Because the most time-consuming part of the workflows is running external software (like Quantum ESPRESSO), we also built packages to interact with them, e.g., `QuantumESPRESSO.jl` and `Pseudopotentials.jl`. Besides, we discovered many valuable Julia packages and integrated them into our code, such as `Configurations.jl`, `Comonicon.jl`, `Setfield.jl`.  In this talk, we would like to explain how Julia made our complicated codebase possible and share some experiences about when and how we should utilize these wonderful projects.
