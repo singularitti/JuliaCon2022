@@ -1,0 +1,3 @@
+[submodule "juliaplots.sty"]
+	path = juliaplots.sty
+	url = https://github.com/sisl/juliaplots.sty
