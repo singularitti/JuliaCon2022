@@ -25,6 +25,9 @@
 \usepackage[flushleft]{threeparttable}
 \usepackage{vector} % local
 \usepackage{varwidth}
+\usepackage{graphicx}
+
+\graphicspath{{../images/}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,7 +59,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Reference (biber) settings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[style=verbose,backend=biber]{biblatex}
+\usepackage[style=verbose,backend=biber,autocite=footnote,doi=false,isbn=false,url=false]{biblatex}
 \addbibresource{\jobname.bib}
 \setbeamerfont{footnote}{size=\tiny}
 \setbeamertemplate{bibliography item}{}% Remove reference icon.
