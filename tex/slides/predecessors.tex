@@ -13,12 +13,15 @@
         \end{column}
 
         \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width=\textwidth]{vlab}
-                \caption{\url{http://www.mineralscloud.com/resources/}\footnotemark}
-            \end{figure}
+            \begin{tikzpicture}[baseline=(current bounding box.north)]
+                \draw (0, 0) node {\includegraphics[width=\textwidth]{vlab}};
+                \draw (1, 1) node {Hello world};
+            \end{tikzpicture}
         \end{column}
     \end{columns}
     \footcitetext{DASILVA2007321}
+
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[xshift=-1cm,yshift=-1cm] at (current page.north east) {\qrcode[height=2cm]{http://mineralscloud.com/resources/}};
+    \end{tikzpicture}
 \end{frame}
