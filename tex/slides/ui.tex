@@ -24,3 +24,35 @@
     \end{block}
 
 \end{frame}
+
+% [fragile] needed when the content contains juliaverbatim.
+\begin{frame}[fragile]{Implementation}
+
+    With \href{https://github.com/comonicon/Comonicon.jl}{\texttt{Comonicon.jl}}, we can implement
+    an aforementioned interface easily.
+
+    \begin{algorithmblock}
+        \begin{juliaverbatim}
+            module ExpressCommands
+                using Comonicon: @cast, @main
+
+                @cast function print(file)
+                    ext = lowercase(extension(file))
+                    if ext == "jls"
+                        pprint(deserialize(file))
+                    elseif ext == "jld2"
+                        pprint(JLD2.load(file))
+                    elseif ext in ("json", "yaml", "yml", "toml")
+                        data = load(file)
+                        pprint(data)
+                    else
+                        error("unsupported file extension `\$ext`!")
+                    end
+                end
+
+                @main
+            end
+        \end{juliaverbatim}
+    \end{algorithmblock}
+
+\end{frame}
