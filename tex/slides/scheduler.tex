@@ -65,7 +65,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[height=0.5\textheight]{order}
+        \includegraphics[height=0.45\textheight]{order}
         \caption{The execution order of the \texttt{Job}s from \texttt{i} to \texttt{n}.
             Blue circles are the first, then green, then yellow, and gray is the last.}
         \label{fig:order}
@@ -73,5 +73,29 @@
 
     \texttt{Jobs} of the same order are executed in parallel or asynchronously by
     Kahn's algorithm.
+
+    \framebreak
+
+    After or during the execution of the \texttt{Workflow}, we can use \texttt{queue} to
+    print all the \texttt{Job}s' information:
+
+    {\scriptsize
+    \begin{algorithmblock}
+        \begin{juliaverbatim}
+            run!(wf)
+        \end{juliaverbatim}
+    \end{algorithmblock}
+    }
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{queue}
+        \caption{Queuing the information of the \texttt{Job}s in a \texttt{Workflow}.}
+        \label{fig:queue}
+    \end{figure}
+
+    And a \texttt{JLD2} format file will be saved during this step. If some errors happened
+    during the running or the execution is interrupted, we can rerun only the
+    failed/interrupted \texttt{Jobs} according to the information saved in that file.
 
 \end{frame}
