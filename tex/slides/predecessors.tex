@@ -1,7 +1,5 @@
 \section{Predecessors}
 
-\subsection{VLab}
-
 \begin{frame}{VLab}
     \begin{columns}[t]
         \begin{column}{0.4\textwidth}
@@ -17,7 +15,7 @@
         \begin{column}{0.6\textwidth}
             \begin{tikzpicture}[baseline=(current bounding box.north)]
                 \draw (0, 0) node {\includegraphics[width=\textwidth]{vlab}};
-                \draw (1, 1) node {Hello world};
+                \draw (1, -2.5) node {\url{http://mineralscloud.com/resources/}};
             \end{tikzpicture}
         \end{column}
     \end{columns}
@@ -28,8 +26,27 @@
     \end{tikzpicture}
 \end{frame}
 
-\subsection{other stuff}
+\begin{frame}{\texttt{qha}}
+    \begin{columns}[t]
+        \begin{column}{0.4\textwidth}
+            We drew inspiration from our published and unpublished code, e.g. \texttt{qha},
+            when developing the current workflows.
 
-\begin{frame}{other stuff}
+            For example, \texttt{qha} runs with a human-readable
+            configuration file and a given input.
+            The same mechanism is adopted in \express{}.
+            See subsection \ref{ssec:ui}.
+        \end{column}
 
+        \begin{column}{0.6\textwidth}
+            \begin{tikzpicture}[baseline=(current bounding box.north)]
+                \draw (0, 0) node {\includegraphics[width=\textwidth]{qha}};
+                \draw (1, -3) node {\url{https://github.com/MineralsCloud/qha}};
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[xshift=-1cm,yshift=-1cm] at (current page.north east) {\qrcode[height=2cm]{https://github.com/MineralsCloud/qha}};
+    \end{tikzpicture}
 \end{frame}
