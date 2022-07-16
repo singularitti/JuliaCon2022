@@ -26,34 +26,61 @@
 \end{frame}
 
 % [fragile] needed when the content contains juliaverbatim.
-\begin{frame}[fragile]{Implementation}
+\begin{frame}[fragile, allowframebreaks]{Implementation}
 
     With \href{https://github.com/comonicon/Comonicon.jl}{\texttt{Comonicon.jl}}, we can implement
     an aforementioned interface easily.
-    {\scriptsize
-        \begin{algorithmblock}
-            \begin{juliaverbatim}
+
+        {\scriptsize
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
 module ExpressCommands
 using Comonicon: @cast, @main
 
 @cast function print(file)
-    ext = lowercase(extension(file))
-    if ext == "jls"
-        pprint(deserialize(file))
-    elseif ext == "jld2"
-        pprint(JLD2.load(file))
-    elseif ext in ("json", "yaml", "yml", "toml")
-        data = load(file)
-        pprint(data)
-    else
-        error("unsupported file extension `\$ext`!")
-    end
+    ...
 end
 
 @main
 end
-            \end{juliaverbatim}
-        \end{algorithmblock}
+                \end{juliaverbatim}
+            \end{algorithmblock}
+        }
+
+    Then we can run
+
+        {\scriptsize
+            \begin{algorithmblock}
+                xps print config.toml
+            \end{algorithmblock}
+        }
+
+    to print a configuration file, for example.
+
+    \framebreak
+
+    To build subcommands for different workflows, we use modules inside the global module
+    (\texttt{ExpressCommands}) to do that:
+
+    {\scriptsize
+    \begin{algorithmblock}
+        \begin{juliaverbatim}
+module ExpressCommands
+
+module EOS
+
+using Comonicon: @cast
+
+@cast function fit(calc, cfgfile)
+    ...
+end
+
+end
+
+end
+        \end{juliaverbatim}
+    \end{algorithmblock}
     }
 
+    See package \texttt{ExpressCommands.jl} for more details.
 \end{frame}
