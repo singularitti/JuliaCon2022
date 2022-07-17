@@ -145,19 +145,13 @@ pw("scf.in", "scf.out"; np = 16, npool = 2, nk = 2)
     What's more, we could use
     \href{https://github.com/comonicon/Comonicon.jl}{\texttt{Comonicon.jl}},
     to build new executables that will provide customized arguments
+    (see \href{https://github.com/MineralsCloud/QuantumESPRESSOCommands.jl}{\texttt{QuantumESPRESSOCommands.jl}})
 
         {\scriptsize
             \begin{algorithmblock}
                 \begin{juliaverbatim}
-@cast function pw(
-    input,
-    output = mktemp(parentdir(input))[1];
-    np = 1,
-    npool = 1,
-    nk = 1,
-    path = "pw.x",
-    chdir = false,
-)
+@cast function pw(input, output = mktemp(parentdir(input))[1]; 
+                  np = 1, npool = 1, nk = 1, path = "pw.x", chdir = false)
     ...
     return run(cmd)
 end
