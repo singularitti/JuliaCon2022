@@ -27,6 +27,25 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}{Various \ab{} software}
+    To do \ab{} calculations, it is inevitable to interact with \ab{} software.
+    There are a lot of them on the market, e.g., \qe{}, VASP, and ABINIT.
+    They are often written in Fortran, and needed to be compiled to executable
+    when using.
+
+    So building a workflow for them requires us to create parsers for their input and output
+    files, as well as functions to dynamically run these executables.
+
+    \begin{figure}[b]
+        \centering
+        \includegraphics[width=0.4\textwidth]{qe}
+        \hfill
+        \includegraphics[width=0.2\textwidth]{vasp}
+        \hfill
+        \includegraphics[width=0.3\textwidth]{abinit}
+        \label{fig:abinitsoftware}
+    \end{figure}
+\end{frame}
 \subsection{What is needed in an \ab{} workflow system?}
 
 \begin{frame}{What is needed in an \ab{} workflow system?}
