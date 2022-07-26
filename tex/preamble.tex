@@ -140,10 +140,10 @@
 \usetikzlibrary{shapes}
 
 \tikzset{
-    func/.style = {rectangle, rounded corners=1, draw},
-    partial/.style = {rectangle, darkgreen, font=\bfseries},
-    input/.style = {rectangle},
-    nnnode/.style = {circle, draw=black, fill=white, minimum size=16pt,},
+  func/.style = {rectangle, rounded corners=1, draw},
+  partial/.style = {rectangle, darkgreen, font=\bfseries},
+  input/.style = {rectangle},
+  nnnode/.style = {circle, draw=black, fill=white, minimum size=16pt,},
 }
 
 \tikzstyle{solid_line}=[solid, thick, mark=none]
@@ -164,13 +164,13 @@
 \definecolor{shadecolor}{rgb}{1,0.8,0.3}
 \newenvironment{algorithmblock}[1][htbp]
 {\begin{mdframed}[backgroundcolor=black!5,rightline=false,leftline=false]}
-{\end{mdframed}}
+    {\end{mdframed}}
 
 \newenvironment{definitionblock}[1]{%
-    \begin{mdframed}[backgroundcolor=black!5,rightline=false,leftline=false]
-        \textbf{Definition: #1}\;
-}{%
-    \end{mdframed}
+  \begin{mdframed}[backgroundcolor=black!5,rightline=false,leftline=false]
+    \textbf{Definition: #1}\;
+    }{%
+  \end{mdframed}
 }
 
 \newenvironment{centerjuliaverbatim}{%
@@ -202,12 +202,12 @@
 
 \setbeamertemplate{frametitle}
 {
-    \vspace*{0.7cm}
-    \insertframetitle
-    \ifx\insertsubtitle\@empty
-    \else
-      \vskip0.25em
-      {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertframesubtitle\par}
+  \vspace*{0.7cm}
+  \insertframetitle
+  \ifx\insertsubtitle\@empty
+  \else
+    \vskip0.25em
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertframesubtitle\par}
   \fi
 }
 % See https://tex.stackexchange.com/a/295859/61591
@@ -215,13 +215,13 @@
 
 \AtBeginSection[]{
   \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center]{title}
-    {\usebeamerfont{title}\usebeamercolor[fg]{title}{\textsc{\insertsectionhead}}}\par%
-  \end{beamercolorbox}
-  \vfill
-  % \tableofcontents[currentsection,currentsubsection,subsectionstyle=show/show/hide,subsubsectionstyle=show/shaded/hide]
+    \vfill
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      {\usebeamerfont{title}\usebeamercolor[fg]{title}{\textsc{\insertsectionhead}}}\par%
+    \end{beamercolorbox}
+    \vfill
+    % \tableofcontents[currentsection,currentsubsection,subsectionstyle=show/show/hide,subsubsectionstyle=show/shaded/hide]
   \end{frame}
 }
 
@@ -277,10 +277,10 @@
 \DeclareMathOperator{\modOne}{mod_1}
 \DeclareMathOperator{\trace}{Tr}
 \newcommand{\minprob}[3]{
-\begin{aligned}
-    \minimize_{#1} & & #2\\
-    \subjectto & & #3 \\
-\end{aligned}
+  \begin{aligned}
+    \minimize_{#1} &  & #2 \\
+    \subjectto     &  & #3 \\
+  \end{aligned}
 }
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\SD}{SD}
