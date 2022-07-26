@@ -1,0 +1,56 @@
+\subsubsection{A wrapper for \ab{} software executables}
+
+\begin{frame}[fragile, allowframebreaks]{\subsubsecname}
+
+    To run external \ab{} software within Julia, what should we do?
+
+    Use the Julia \texttt{AbstractCmd}s? Good choice! But sometimes we want to dynamically generate
+    a series of \texttt{AbstractCmd}s. Writing them one by one is not so efficient.
+
+    Or, can we write functions to generate \texttt{AbstractCmd}s? Then all the command
+    arguments will be standard Julia function arguments. For example,
+
+    {\scriptsize
+            \begin{algorithmblock}
+                mpirun -np 16 pw.x -npool 2 -nk 2 -input scf.in > scf.out
+            \end{algorithmblock}
+        }
+
+    will be
+
+        {\scriptsize
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
+pw("scf.in", "scf.out"; np = 16, npool = 2, nk = 2)
+                \end{juliaverbatim}
+            \end{algorithmblock}
+        }
+
+    \framebreak
+
+    What's more, we could use
+    \href{https://github.com/comonicon/Comonicon.jl}{\texttt{Comonicon.jl}},
+    to build new executables that will provide customized arguments
+    (see \href{https://github.com/MineralsCloud/QuantumESPRESSOCommands.jl}{\texttt{QuantumESPRESSOCommands.jl}})
+
+    {\scriptsize
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
+@cast function pw(input, output = mktemp(parentdir(input))[1];
+                  np = 1, npool = 1, nk = 1, path = "pw.x", chdir = false)
+    ...
+    return run(cmd)
+end
+                \end{juliaverbatim}
+            \end{algorithmblock}
+        }
+
+    Therefore, we could run it with
+
+        {\scriptsize
+            \begin{algorithmblock}
+                pw -np 16 -npool 2 -nk 2 -input scf.in scf.out
+            \end{algorithmblock}
+        }
+
+\end{frame}

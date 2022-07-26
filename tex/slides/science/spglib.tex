@@ -1,0 +1,72 @@
+\subsubsection{Binary dependencies \& foreign function interface}
+
+\begin{frame}
+    \frametitle{\subsubsecname}
+    \framesubtitle{Building an artifact}
+
+    Operations like finding the symmetry of a crystal,
+    are very common in \ab{} calculations (usually the first step).
+    Therefore, we need a good library to do this.
+
+    There is a C library called \href{https://github.com/spglib/spglib}{\texttt{spglib}}
+    that does this.
+    To take this library in productive use, we need first put it in a container
+    (``Artifacts''). Luckily, the amazing Julia community has made it possible:
+    \href{https://github.com/JuliaBinaryWrappers/spglib_jll.jl}{\texttt{spglib_jll.jl}}.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{\subsubsecname}
+    \framesubtitle{Foreign function interface}
+
+    \begin{columns}
+        \begin{column}{0.3\textwidth}
+            Now that we have an artifact that exports the functions of the C library,
+            it may still be hard to use since it uses some C data structures and API still which may
+            not be idiomatic Julia. Therefore, we need to wrap it with a higher level of APIs:
+            \href{https://github.com/singularitti/Spglib.jl}{\texttt{Spglib.jl}} is built based on
+            this expectation.
+        \end{column}
+
+        \begin{column}{0.7\textwidth}
+            {\tiny
+                \begin{algorithmblock}
+                    \begin{juliaverbatim}
+function standardize_cell(
+    cell::Cell;  # `Cell` was not defined in the C library
+    to_primitive = false,
+    no_idealize = false,
+    symprec = 1e-5,
+)
+    @unpack lattice, positions, types = _expand_cell(cell)
+    to_primitive = Base.cconvert(Cint, to_primitive)
+    no_idealize = Base.cconvert(Cint, no_idealize)
+    num_atom = Base.cconvert(Cint, length(types))
+    allocations = 4
+    _positions = Matrix{Cdouble}(undef, 3, num_atom * allocations)
+    _types = Vector{Cint}(undef, num_atom * allocations)
+    _positions[:, 1:num_atom] = positions
+    _types[1:num_atom] = types
+    num_atom_std = ccall(
+        (:spg_standardize_cell, libsymspg),
+        Cint,
+        (Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cint}, Cint, Cint, Cint, Cdouble),
+        lattice,
+        _positions,
+        _types,
+        num_atom,
+        to_primitive,
+        no_idealize,
+        symprec,
+    )
+    if num_atom_std <= 0
+        throw(SpglibError("Cell standardization failed!"))
+    end
+    return Cell(transpose(lattice), _positions[:, 1:num_atom_std], _types[1:num_atom_std])
+end
+                    \end{juliaverbatim}
+                \end{algorithmblock}
+            }
+        \end{column}
+    \end{columns}
+\end{frame}
