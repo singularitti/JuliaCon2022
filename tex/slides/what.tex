@@ -61,7 +61,10 @@
 
 \subsection{What is \express{}?}
 
-\begin{frame}{What is \express{}?}
+\begin{frame}
+    \frametitle{What is \express{}?}
+    \framesubtitle{Definition}
+
     \begin{definitionblock}{\express{}}
         A workflow framework consisting of several extensible, lightweight, high-throughput,
         high-level Julia packages that aims to automate \ab{} calculations for the materials
@@ -78,12 +81,17 @@
     \end{definitionblock}
 \end{frame}
 
-\begin{frame}[allowframebreaks]{What does the \express{} project include?}
-    \begin{figure}
+\begin{frame}[allowframebreaks]
+    \frametitle{What is \express{}?}
+    \framesubtitle{What does \express{} include?}
+
+    \begin{figure}[H]
         \centering
         \makebox[\textwidth][c]{\includegraphics[width=\pagewidth]{components}} % See https://tex.stackexchange.com/a/16584/61591
         \label{fig:components}
     \end{figure}
+
+    \framebreak
 
     \express{} can be separated into two parts: software-neutral and software-specific packages.
     For the first kind, it includes
