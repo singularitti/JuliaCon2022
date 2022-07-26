@@ -2,9 +2,11 @@
 
 \subsection{Sciency, technical stuff}
 
-\subsubsection{Binary dependencies and foreign function interface}
+\subsubsection{Binary dependencies \& foreign function interface}
 
-\begin{frame}{Build an artifact}
+\begin{frame}
+    \frametitle{\subsubsecname}
+    \framesubtitle{Building an artifact}
 
     Operations like finding the symmetry of a crystal,
     are very common in \ab{} calculations (usually the first step).
@@ -15,10 +17,11 @@
     To take this library in productive use, we need first put it in a container
     (``Artifacts''). Luckily, the amazing Julia community has made it possible:
     \href{https://github.com/JuliaBinaryWrappers/spglib_jll.jl}{\texttt{spglib_jll.jl}}.
-
 \end{frame}
 
-\begin{frame}[fragile]{Foreign function interface}
+\begin{frame}[fragile]
+    \frametitle{\subsubsecname}
+    \framesubtitle{Foreign function interface}
 
     \begin{columns}
         \begin{column}{0.3\textwidth}
@@ -70,10 +73,7 @@ end
             }
         \end{column}
     \end{columns}
-
 \end{frame}
-
-\begin{frame}[allowframebreaks]{Parsers for \ab{} software I/O}
 
     This is usually hard since most \ab{} are written in Fortran and Julia does not (?)
     have a Fortran parser...
@@ -94,7 +94,9 @@ end
     \end{itemize}
 
     \framebreak
+\subsubsection{Parsers for \ab{} software I/O}
 
+\begin{frame}[allowframebreaks]{\subsubsecname}
     For output files, it is even more complicated since they usually do not have a standard
     format, therefore lots of regular expressions need to be used.
 
@@ -103,7 +105,9 @@ end
 
 \end{frame}
 
-\begin{frame}[fragile, allowframebreaks]{A wrapper for \ab{} software executables}
+\subsubsection{A wrapper for \ab{} software executables}
+
+\begin{frame}[fragile, allowframebreaks]{\subsubsecname}
 
     To run external \ab{} software within Julia, what should we do?
 

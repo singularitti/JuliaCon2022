@@ -1,6 +1,8 @@
 \subsection{Dispatcher and job scheduler}
 
-\begin{frame}{Core component of \texttt{Express}}
+\begin{frame}
+    \frametitle{\subsecname}
+    \framesubtitle{\texttt{SimpleWorkflows.jl}}
 
     The core of \express{} is its dispatching system,
     which is implemented by
@@ -23,21 +25,23 @@
             \end{center}
         \end{column}
     \end{columns}
-
 \end{frame}
 
-\begin{frame}{Design overview}
+\begin{frame}
+    \frametitle{\subsecname}
+    \framesubtitle{Design overview}
 
     The simplest atomic operation in a \texttt{Workflow} is called a \texttt{Job}.
     It tracks the time, result, and other info of the user's input.
     The relationship between each \texttt{Job} in the \texttt{Workflow} is represented by a
     DAG.
     To construct a \texttt{Workflow}, we provide some operators to simplify this step.
-
 \end{frame}
 
 % [fragile] needed when the content contains juliaverbatim.
-\begin{frame}[fragile, allowframebreaks]{An example}
+\begin{frame}[fragile, allowframebreaks]
+    \frametitle{\subsecname}
+    \framesubtitle{An example}
 
     Let's construct an arbitrary \texttt{Workflow}:
     {\scriptsize
@@ -97,5 +101,4 @@
     And a \texttt{JLD2} format file will be saved during this step. If some errors happened
     during the running or the execution is interrupted, we can rerun only the
     failed/interrupted \texttt{Jobs} according to the information saved in that file.
-
 \end{frame}
