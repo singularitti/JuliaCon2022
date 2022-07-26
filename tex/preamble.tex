@@ -204,6 +204,11 @@
 {
     \vspace*{0.7cm}
     \insertframetitle
+    \ifx\insertsubtitle\@empty
+    \else
+      \vskip0.25em
+      {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertframesubtitle\par}
+  \fi
 }
 % See https://tex.stackexchange.com/a/295859/61591
 \setbeamertemplate{frametitle continuation}[from second][\usebeamerfont{frametitle}(\insertcontinuationcountroman)]
