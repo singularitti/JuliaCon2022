@@ -10,6 +10,10 @@
 
 \defbeamertemplate*{title page}{customized}[1][]
 {
+    \begin{tikzpicture}[remember picture, overlay]  % See https://stackoverflow.com/a/51412468/3260253
+        \node[opacity=0.4,inner sep=0pt,xshift=4cm] at (current page)
+        {\includegraphics[height=0.8\paperheight]{logo}};
+    \end{tikzpicture}\par
     \usebeamerfont{title}\textls[100]{\MakeUppercase{\textbf{\inserttitle}}}\par
     \usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\textls[100]{\textsc{\insertsubtitle}}\par\par
     \vfill
