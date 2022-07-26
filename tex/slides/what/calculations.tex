@@ -22,20 +22,20 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[height=0.4\textheight]{workflows}
-        \caption{Typical \ab{} workflows used in our group}
+        \includegraphics[width=\textwidth]{workflows}
+        \caption{Typical \ab{} workflows used in our group.}
         \label{eq:workflows}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Various \ab{} software}
     To do \ab{} calculations, it is inevitable to interact with \ab{} software.
-    There are a lot of them on the market, e.g., \qe{}, VASP, and ABINIT.
-    They are often written in Fortran, and needed to be compiled to executable
-    when using.
+    There are many of them on the market, e.g., \qe{}, VASP, and ABINIT.
+    They are often written in Fortran and need to be compiled into executables
+    when used.\\
 
     So building a workflow for them requires us to create parsers for their input and output
-    files, as well as functions to dynamically run these executables.
+    files, as well as functions to run these executables dynamically.
 
     \begin{figure}[b]
         \centering
