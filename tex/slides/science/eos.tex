@@ -1,0 +1,65 @@
+\subsubsection{Some simple calculations}
+
+\begin{frame}
+    \frametitle{}
+
+    In \ab{} workflows, most of the calculations are done by \ab{} software.
+    However, sometimes we do need to do some operations by ourselves when preparing the input
+    or analyzing the output, such as unit conversion, fitting, root-finding, and some more
+    complicated computations.\\
+
+    In \express{}, \texttt{EquationsOfStateOfSolids.jl} and \texttt{Crystallography.jl}
+    are two good examples.\\
+
+
+
+\end{frame}
+
+\begingroup
+\scriptsize % Change this page's font size, see https://tex.stackexchange.com/a/213839/61591
+\begin{frame}[fragile]
+    \frametitle{\subsubsecname}
+
+    A 3rd-order Birch--Murnaghan EOS needs 4 parameters: $V_0$, $B_0$, $B_0'$, and optionally
+    $E_0$. From them you can calculate $E(V)$, $B(V)$, and $P(V)$ of a solid material.
+
+        {\tiny
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
+struct BirchMurnaghan3rd{T}
+    v0::T
+    b0::T
+    b′0::T
+    e0::T
+    BirchMurnaghan3rd{T}(v0, b0, b′0, e0 = zero(v0 * b0)) where {T} = new(v0, b0, b′0, e0)
+end
+        \end{juliaverbatim}
+            \end{algorithmblock}
+        }
+
+    How to distinguish different equations ($E(V)$, $B(V)$, $P(V)$)? Functions! Or,
+    \href{https://docs.julialang.org/en/v1/manual/methods/#Function-like-objects-1}{function-like objects}.\\
+
+    Evaluation:
+    {\tiny
+    \begin{algorithmblock}
+        \begin{juliaverbatim}
+eos = EnergyEquation(BirchMurnaghan3rd(224u"bohr^3", 9u"GPa", 4, -4400.3221128178u"eV"))
+eos(29.6u"angstrom^3")  # -4399.983486835037u"eV"
+        \end{juliaverbatim}
+    \end{algorithmblock}
+    }
+    Notice how we do not need to convert between units! Thank god!\\
+
+    Fitting equations of state:
+    {\tiny
+    \begin{algorithmblock}
+        \begin{juliaverbatim}
+nonlinfit(EnergyEquation(BirchMurnaghan3rd(40, 0.5, 4)), volumes, energies)
+nonlinfit(EnergyEquation(Murnaghan1st(41, 0.5, 4)), volumes, energies)
+nonlinfit(EnergyEquation(Vinet(41, 0.5, 4)), volumes, energies)
+        \end{juliaverbatim}
+    \end{algorithmblock}
+    }
+\end{frame}
+\endgroup
