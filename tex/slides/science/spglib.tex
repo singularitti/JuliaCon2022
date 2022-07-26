@@ -47,7 +47,7 @@ function standardize_cell(
     _types = Vector{Cint}(undef, num_atom * allocations)
     _positions[:, 1:num_atom] = positions
     _types[1:num_atom] = types
-    num_atom_std = ccall(
+    n = ccall(
         (:spg_standardize_cell, libsymspg),
         Cint,
         (Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cint}, Cint, Cint, Cint, Cdouble),
@@ -59,10 +59,7 @@ function standardize_cell(
         no_idealize,
         symprec,
     )
-    if num_atom_std <= 0
-        throw(SpglibError("Cell standardization failed!"))
-    end
-    return Cell(transpose(lattice), _positions[:, 1:num_atom_std], _types[1:num_atom_std])
+    return Cell(transpose(lattice), _positions[:, 1:n], _types[1:n])
 end
                     \end{juliaverbatim}
                 \end{algorithmblock}
