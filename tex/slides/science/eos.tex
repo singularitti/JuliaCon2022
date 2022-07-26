@@ -63,3 +63,43 @@ nonlinfit(EnergyEquation(Vinet(41, 0.5, 4)), volumes, energies)
     }
 \end{frame}
 \endgroup
+
+\begin{frame}[fragile]
+    \frametitle{Coordinate transformations in crystals}
+
+    In crystallography, coordinate transformations is frequently used and liable to error.
+    \begin{itemize}
+        \item Crystal coordinates $\leftrightarrow$ Cartesian coordinates
+        \item Primitive cell coordinates $\leftrightarrow$ standardized cell coordinates
+    \end{itemize}
+
+    \begin{columns}[t]
+        \begin{column}[T, onlytextwidth]{0.2\textwidth}
+            \begin{figure}
+                \includegraphics[width=\textwidth]{fcc}
+                \captionsetup{font=tiny}
+                \caption{Conventional (cube) \& primitive (red) unit cells of FCC structure}
+            \end{figure}
+        \end{column}
+
+        \begin{column}[T]{0.8\textwidth}
+            {\scriptsize
+                \begin{algorithmblock}
+                    \begin{juliaverbatim}
+using CoordinateTransformations: Transformation
+
+struct CartesianFromFractional{T} <: Transformation
+    tf::SMatrix{3,3,T,9}
+end
+struct PrimitiveFromStandardized{T} <: Transformation
+    tf::SMatrix{3,3,T,9}
+end
+CartesianFromFractional(lattice::Lattice) = ...
+(x::CartesianFromFractional)(v) = x.tf * collect(v)
+(x::PrimitiveFromStandardized)(v) = inv(x.tf) * collect(v)
+        \end{juliaverbatim}
+                \end{algorithmblock}
+            }
+        \end{column}
+    \end{columns}
+\end{frame}
