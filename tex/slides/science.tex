@@ -75,33 +75,32 @@ end
     \end{columns}
 \end{frame}
 
-    This is usually hard since most \ab{} are written in Fortran and Julia does not (?)
-    have a Fortran parser...
-
-    \begin{itemize}
-        \item For example, \qe{}'s input adopts the \texttt{Namelist} data structure from
-              Fortran, and Julia does not have a parser for that...
-        \item I know a Python package called
-              \href{https://github.com/marshallward/f90nml}{\texttt{f90nml}}, it works well.
-              So it came to me that I might write a Julia package that calls that Python
-              code.
-        \item Therefore, I wrote a very preliminary package
-              \href{https://github.com/singularitti/PyFortran90Namelists.jl}{\texttt{PyFortran90Namelists.jl}}
-              since writing a parser is time-consuming for a non-CS student like me.
-        \item However, it uses \texttt{PyCall.jl}, so sometimes people have trouble installing
-              it if they already have Python installed
-              (see \href{https://github.com/JuliaPy/PyCall.jl\#specifying-the-python-version}{``Specifying the Python version''}).
-    \end{itemize}
-
-    \framebreak
 \subsubsection{Parsers for \ab{} software I/O}
 
 \begin{frame}[allowframebreaks]{\subsubsecname}
+    Most \ab{} software are written in Fortran and has plain text files as input \& output.
+    Therefore, we need parsers for both of them. But it is tricky...
+
+        {\footnotesize
+            \begin{itemize}
+                \item For example, \qe{}'s input adopts the \texttt{Namelist} data structure from
+                      Fortran. Julia does not have a parser for Fortran...
+                \item A Python package
+                      (\href{https://github.com/marshallward/f90nml}{\texttt{f90nml}}) can do that.
+                      I wrote a very preliminary package
+                      \href{https://github.com/singularitti/PyFortran90Namelists.jl}{\texttt{PyFortran90Namelists.jl}}
+                      to call that Python code.
+                \item However, it uses \texttt{PyCall.jl}, so sometimes people have trouble installing
+                      it if they already have Python installed
+                      (see \href{https://github.com/JuliaPy/PyCall.jl\#specifying-the-python-version}{``Specifying the Python version''}).
+            \end{itemize}
+        }
+
     For output files, it is even more complicated since they usually do not have a standard
     format, therefore lots of regular expressions need to be used.
+    It is extremely error-prone. I used
+    \href{https://github.com/jkrumbiegel/ReadableRegex.jl}{\texttt{ReadableRegex.jl}} to build them.
 
-    It is extremely tricky and error-prone. If you are not familiar with regular expressions,
-    try \href{https://github.com/jkrumbiegel/ReadableRegex.jl}{\texttt{ReadableRegex.jl}} to help you build them.
 
 \end{frame}
 
