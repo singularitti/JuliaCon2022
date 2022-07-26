@@ -40,6 +40,6 @@ sub pull_julia_code {
 
 pull_julia_code();
 
-$lualatex = "lualatex %O -shell-escape %S";
+$lualatex = "lualatex %O -synctex=1 --interaction=nonstopmode -file-line-error -shell-escape %S";
 
 @default_files = ('main');
