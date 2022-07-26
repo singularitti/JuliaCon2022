@@ -1,4 +1,4 @@
-# JuliaCon 2022 proposal
+# JuliaCon 2022 Slides
 
 ## [Building workflows for materials modeling on HPC systems](https://pretalx.com/juliacon-2022/talk/review/LND3T9QWBVE8MNCMATWVBCBXMZGBAN3N)
 
