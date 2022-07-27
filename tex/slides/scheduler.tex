@@ -1,9 +1,6 @@
 \subsection{Dispatcher and job scheduler}
 
-\begin{frame}
-    \frametitle{\subsecname}
-    \framesubtitle{\texttt{SimpleWorkflows.jl}}
-
+\begin{frame}{\subsecname}
     The core of \express{} is its dispatching system,
     which is implemented by
     \href{https://github.com/MineralsCloud/SimpleWorkflows.jl}{\texttt{SimpleWorkflows.jl}},
@@ -27,15 +24,26 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{\subsecname}
     \framesubtitle{Design overview}
 
     The simplest atomic operation in a \texttt{Workflow} is called a \texttt{Job}.
     It tracks the time, result, and other info of the user's input.
     The relationship between each \texttt{Job} in the \texttt{Workflow} is represented by a
-    DAG.
+    DAG.\\
+
     To construct a \texttt{Workflow}, we provide some operators to simplify this step.
+
+        {\footnotesize
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
+using SimpleWorkflows: →, ⇉, ⇶, ↣
+
+a0 → a ⇉ b ⇶ c ↣ d0 → d → f → g ⇉ h ⇶ i ↣ j0 → j → l
+        \end{juliaverbatim}
+            \end{algorithmblock}
+        }
 \end{frame}
 
 % [fragile] needed when the content contains juliaverbatim.
@@ -47,18 +55,18 @@
     {\scriptsize
     \begin{algorithmblock}
         \begin{juliaverbatim}
-            using SimpleWorkflows
-            i = @job (println("Start job `i`!"); sleep(5)) user = "me" desc = "i"
-            j = @job (println("Start job `j`!"); sleep(3); exp(2)) user = "me" desc = "j"
-            k = @job (println("Start job `k`!"); sleep(6)) desc = "k"
-            l = @job (println("Start job `l`!"); run(`sleep 3`)) desc = "l" user = "me"
-            m = @job (println("Start job `m`!"); sleep(3); sin(1)) desc = "m"
-            n = @job (println("Start job `n`!"); run(`pwd` & `ls`)) user = "me" desc = "n"
-            i → l
-            j → k → m → n
-            j → l
-            k → n
-            wf = Workflow(k)
+using SimpleWorkflows
+i = @job (println("Start job `i`!"); sleep(5)) user = "me" desc = "i"
+j = @job (println("Start job `j`!"); sleep(3); exp(2)) user = "me" desc = "j"
+k = @job (println("Start job `k`!"); sleep(6)) desc = "k"
+l = @job (println("Start job `l`!"); run(`sleep 3`)) desc = "l" user = "me"
+m = @job (println("Start job `m`!"); sleep(3); sin(1)) desc = "m"
+n = @job (println("Start job `n`!"); run(`pwd` & `ls`)) user = "me" desc = "n"
+i → l
+j → k → m → n
+j → l
+k → n
+wf = Workflow(k)
         \end{juliaverbatim}
     \end{algorithmblock}
     }
@@ -69,7 +77,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[height=0.45\textheight]{order}
+        \includegraphics[height=0.35\textheight]{order}
         \caption{The execution order of the \texttt{Job}s from \texttt{i} to \texttt{n}.
             Blue circles are the first, then green, then yellow, and gray is the last.}
         \label{fig:order}
@@ -86,7 +94,8 @@
     {\scriptsize
     \begin{algorithmblock}
         \begin{juliaverbatim}
-            run!(wf)
+run!(wf)
+queue()
         \end{juliaverbatim}
     \end{algorithmblock}
     }
@@ -98,7 +107,7 @@
         \label{fig:queue}
     \end{figure}
 
-    And a \texttt{JLD2} format file will be saved during this step. If some errors happened
+    And a \texttt{JLD2} format file will be saved during this step. If some errors happen
     during the running or the execution is interrupted, we can rerun only the
     failed/interrupted \texttt{Jobs} according to the information saved in that file.
 \end{frame}
