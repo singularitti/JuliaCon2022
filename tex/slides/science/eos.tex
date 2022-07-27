@@ -1,27 +1,23 @@
 \subsubsection{Some simple calculations}
 
-\begin{frame}
-    \frametitle{}
-
-    In \ab{} workflows, most of the calculations are done by \ab{} software.
-    However, sometimes we do need to do some operations by ourselves when preparing the input
+\begin{frame}{\subsubsecname}
+    In \ab{} workflows, most calculations are done by \ab{} software.
+    However, sometimes we do need to do some calculations by ourselves when preparing the input
     or analyzing the output, such as unit conversion, fitting, root-finding, and some more
     complicated computations.\\
 
     In \express{}, \texttt{EquationsOfStateOfSolids.jl} and \texttt{Crystallography.jl}
-    are two good examples.\\
-
-
-
+    are two good examples.
 \end{frame}
 
 \begingroup
 \scriptsize % Change this page's font size, see https://tex.stackexchange.com/a/213839/61591
 \begin{frame}[fragile]
     \frametitle{\subsubsecname}
+    \framesubtitle{Fitting equations of state}
 
-    A 3rd-order Birch--Murnaghan EOS needs 4 parameters: $V_0$, $B_0$, $B_0'$, and optionally
-    $E_0$. From them you can calculate $E(V)$, $B(V)$, and $P(V)$ of a solid material.
+    A 3rd-order Birch--Murnaghan EOS needs 4 parameters: $V_0$, $B_0$, $B_0'$, and an optional
+    $E_0$. From them, you can calculate $E(V)$, $B(V)$, and $P(V)$ of a solid material.
 
         {\tiny
             \begin{algorithmblock}
@@ -65,9 +61,10 @@ nonlinfit(EnergyEquation(Vinet(41, 0.5, 4)), volumes, energies)
 \endgroup
 
 \begin{frame}[fragile]
-    \frametitle{Coordinate transformations in crystals}
+    \frametitle{\subsubsecname}
+    \framesubtitle{Coordinate transformations in crystals}
 
-    In crystallography, coordinate transformations is frequently used and liable to error.
+    In crystallography, coordinate transformations are frequently used and liable to error.
     \begin{itemize}
         \item Crystal coordinates $\leftrightarrow$ Cartesian coordinates
         \item Primitive cell coordinates $\leftrightarrow$ standardized cell coordinates
