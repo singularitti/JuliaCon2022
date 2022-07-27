@@ -4,14 +4,14 @@
     \frametitle{\subsecname}
     \framesubtitle{Motivation}
 
-    \begin{block}{What should be the most commonly-used interface}
-        Since most tasks in different \ab{} calculations are routine, with only
+    \begin{block}{What should be the most commonly-used interface?}
+        Since most tasks in different \ab{} calculations are routine, only
         input parameters changed. It is desirable to make an interface that takes a few
         parameters each time.
 
-        A command line interface plus a template file for the \ab{} software for the sciency
-        fixed settings and a configuration file for the computational variables is a
-        balanced choice.
+        A balanced choice is a command line interface
+        plus a template file for the \ab{} software for the sciency
+        fixed settings and a configuration file for the computational variables.
     \end{block}
 
     \begin{block}{Command line interface}
@@ -54,7 +54,9 @@ end
 
         {\scriptsize
             \begin{algorithmblock}
-                xps print config.toml
+                \begin{juliaverbatim}
+xps print config.toml
+            \end{juliaverbatim}
             \end{algorithmblock}
         }
 
@@ -62,7 +64,7 @@ end
 
     \framebreak
 
-    To build subcommands for different workflows, we use modules inside the global module
+    To build subcommands for different workflows, we use modules (e.g. \texttt{EOS}) inside the global module
     (\texttt{ExpressCommands}) to do that:
 
     {\scriptsize
@@ -84,6 +86,16 @@ end
         \end{juliaverbatim}
     \end{algorithmblock}
     }
+
+    Then we can run it with
+
+        {\scriptsize
+            \begin{algorithmblock}
+                \begin{juliaverbatim}
+xps eos fit scf config.toml
+    \end{juliaverbatim}
+            \end{algorithmblock}
+        }
 
     See package \texttt{ExpressCommands.jl} for more details.
 \end{frame}
