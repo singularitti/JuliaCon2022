@@ -1,37 +1,41 @@
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{\subsecname}
     \framesubtitle{Run commands with configuration files}
 
     \begin{columns}[t]
-        \begin{column}{0.4\textwidth}
+        \begin{column}[T, onlytextwidth]{0.4\textwidth}
             As stated in previous slides, we could put computational settings
-            in a configuration file to change variables dynamically.
+            in a configuration file to change variables dynamically.\\
 
-            We make use of
+            We use
             \href{https://github.com/Roger-luo/Configurations.jl}{\texttt{Configurations.jl}},
             which can read TOML files into a Julia \texttt{struct}
             (similar to \href{https://github.com/quinnj/JSON3.jl}{\texttt{JSON3.jl}}).
             We accept JSON and YAML formats as well.
-
-            A typical configuration file looks like this (items may change in the future versions):
         \end{column}
 
-        \begin{column}{0.6\textwidth}
-            \begin{minted}[frame=single, linenos]{toml}
-            recipe = "eos"
-            template = "template.in"
-            [cli.mpi]
-            np = 128
-            [save]
-            status = "status.jls"
-            eos = "eos.jls"
-            [trial_eos]
-            type = "bm3"
-            values = ["300.44 bohr^3", "74.88 GPa", 4.82]
-            [fixed.pressures]
-            unit = "GPa"
-            values = [-5, -2, 0, 5, 10, 15, 17, 20]
-        \end{minted}
+        \begin{column}[T]{0.6\textwidth}
+            {\footnotesize A typical configuration file looks like this (items may change in future versions):}
+            % \begin{minted}[frame=single, linenos]{toml}
+            {\scriptsize
+                \begin{algorithmblock}
+                    \begin{juliaverbatim}
+recipe = "eos"
+template = "template.in"
+[cli.mpi]
+np = 128
+[save]
+status = "status.jld2"
+eos = "eos.jld2"
+[trial_eos]
+type = "bm3"
+values = ["300.44 bohr^3", "74.88 GPa", 4.82]
+[fixed.pressures]
+unit = "GPa"
+values = [-5, -2, 0, 5, 10, 15, 17, 20]
+    \end{juliaverbatim}
+                \end{algorithmblock}
+            }
         \end{column}
     \end{columns}
 
