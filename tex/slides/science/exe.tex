@@ -1,18 +1,21 @@
 \subsubsection{A wrapper for \ab{} software executables}
 
 \begin{frame}[fragile, allowframebreaks]{\subsubsecname}
+    To run external \ab{} software within Julia, what should we do?\\
 
-    To run external \ab{} software within Julia, what should we do?
+    Use the Julia \texttt{AbstractCmd}s? Good choice!
+    But sometimes, we want to generate a series of \texttt{AbstractCmd}s dynamically,
+    especially in a workflow system.
+    Writing them one by one is not so efficient.\\
 
-    Use the Julia \texttt{AbstractCmd}s? Good choice! But sometimes we want to dynamically generate
-    a series of \texttt{AbstractCmd}s. Writing them one by one is not so efficient.
-
-    Or, can we write functions to generate \texttt{AbstractCmd}s? Then all the command
-    arguments will be standard Julia function arguments. For example,
+    Wait, can we write functions to generate \texttt{AbstractCmd}s? Then all the command
+    arguments will be standard Julia function arguments! For example,
 
     {\scriptsize
             \begin{algorithmblock}
-                mpirun -np 16 pw.x -npool 2 -nk 2 -input scf.in > scf.out
+                \begin{juliaverbatim}
+mpirun -np 16 pw.x -npool 2 -nk 2 -input scf_in > scf_out
+                \end{juliaverbatim}
             \end{algorithmblock}
         }
 
@@ -21,7 +24,7 @@
         {\scriptsize
             \begin{algorithmblock}
                 \begin{juliaverbatim}
-pw("scf.in", "scf.out"; np = 16, npool = 2, nk = 2)
+pw("scf_in", "scf_out"; np = 16, npool = 2, nk = 2)
                 \end{juliaverbatim}
             \end{algorithmblock}
         }
@@ -36,6 +39,7 @@ pw("scf.in", "scf.out"; np = 16, npool = 2, nk = 2)
     {\scriptsize
             \begin{algorithmblock}
                 \begin{juliaverbatim}
+using Comonicon: @cast
 @cast function pw(input, output = mktemp(parentdir(input))[1];
                   np = 1, npool = 1, nk = 1, path = "pw.x", chdir = false)
     ...
@@ -49,7 +53,9 @@ end
 
         {\scriptsize
             \begin{algorithmblock}
-                pw -np 16 -npool 2 -nk 2 -input scf.in scf.out
+                \begin{juliaverbatim}
+pw -np 16 -npool 2 -nk 2 -input scf_in scf_out
+            \end{juliaverbatim}
             \end{algorithmblock}
         }
 
