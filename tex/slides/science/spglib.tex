@@ -4,14 +4,14 @@
     \frametitle{\subsubsecname}
     \framesubtitle{Building an artifact}
 
-    Operations like finding the symmetry of a crystal,
+    Operations like finding the symmetry of a crystal
     are very common in \ab{} calculations (usually the first step).
     Therefore, we need a good library to do this.
 
     There is a C library called \href{https://github.com/spglib/spglib}{\texttt{spglib}}
     that does this.
-    To take this library in productive use, we need first put it in a container
-    (``Artifacts''). Luckily, the amazing Julia community has made it possible:
+    To make it a productive library, we need first put it in a container
+    (``artifacts''). Luckily, the amazing Julia community has made it possible:
     \href{https://github.com/JuliaBinaryWrappers/spglib_jll.jl}{\texttt{spglib_jll.jl}}.
 \end{frame}
 
@@ -22,8 +22,8 @@
     \begin{columns}
         \begin{column}{0.3\textwidth}
             Now that we have an artifact that exports the functions of the C library,
-            it may still be hard to use since it uses some C data structures and API still which may
-            not be idiomatic Julia. Therefore, we need to wrap it with a higher level of APIs:
+            it may still be hard to use since it uses some C data structures and API, which may
+            not be idiomatic in Julia. Therefore, we need to wrap it with a higher level of APIs.
             \href{https://github.com/singularitti/Spglib.jl}{\texttt{Spglib.jl}} is built based on
             this expectation.
         \end{column}
